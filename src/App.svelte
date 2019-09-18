@@ -1,12 +1,11 @@
 <script>
+	import Start from './Start.svelte';
+
+	let setupMode;
 	let lastKey;
 
 	function onKeyPress(event) {
 		lastKey = event.key;
-	}
-
-	function onClick() {
-		//console.log('click');
 	}
 </script>
 
@@ -27,8 +26,9 @@
 
 <svelte:body on:keypress={onKeyPress} />
 
-<div class="main" on:click={onClick}>
-	{#if lastKey}
+<div class="main">
+	<Start bind:setupMode />
+	{#if !setupMode}
 		<div class="lastKey">{lastKey}</div>
 	{/if}
 </div>
