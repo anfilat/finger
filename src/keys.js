@@ -37,10 +37,10 @@ const keys = [
 	{key: 'ю', base: 'д'},
 ];
 
-export const leftHand = 1;
-export const rightHand = 2;
+export const leftHand = ['ф', 'ы', 'в', 'а'];
+export const rightHand = ['о', 'л', 'д', 'ж'];
 
-export const hand = {
+export const hands = {
 	ф: leftHand,
 	ы: leftHand,
 	в: leftHand,
@@ -54,4 +54,11 @@ export const hand = {
 export function getKeyData(value) {
 	value = value.toLowerCase();
 	return keys.find(({key}) => key == value);
+}
+
+export function getHandBase(keyData) {
+	if (keyData.base) {
+		return hands[keyData.base][Math.floor(Math.random() * 4)];
+	}
+	return null;
 }

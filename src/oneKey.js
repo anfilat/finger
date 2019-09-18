@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { getKeyData } from './keys';
+import { getKeyData, getHandBase } from './keys';
 
 export const selectKey = writable('');
 export const setupOk = derived(
@@ -25,8 +25,6 @@ export function getNextKey() {
 		return result;
 	}
 
-	if (keyData.base) {
-		next = keyData.base;
-	}
+	next = getHandBase(keyData);
 	return keyData.key;
 }
