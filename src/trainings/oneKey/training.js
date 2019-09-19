@@ -1,6 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { getKeyData, getHandBase } from './keys';
-export { default as setupComponent } from './OneKeySetup.svelte';
+import { getKeyData, getHandBase } from '../../keys';
 
 export const selectKey = writable('');
 export const setupOk = derived(

@@ -62,3 +62,7 @@ export function getHandBase(keyData) {
 	}
 	return null;
 }
+
+export function getRandomKeyData() {
+	return keys[Math.floor(Math.random() * keys.length)];
+}

@@ -1,6 +1,6 @@
 <script>
-	import KeyPress from './KeyPress.svelte';
-    import { selectKey, setSelectKey } from './oneKey';
+	import KeyPress from '../../components/KeyPress.svelte';
+    import { selectKey, setSelectKey } from './training';
 
     function onKey(event) {
 		setSelectKey(event.detail);
@@ -16,7 +16,7 @@
 <KeyPress on:key={onKey} />
 
 <div>
-	Нажмите тренируемую клавишу
+	Press the training key
 </div>
 <div class="key">
 	{$selectKey}

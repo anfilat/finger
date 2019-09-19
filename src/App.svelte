@@ -1,14 +1,31 @@
 <script>
-	import Start from './Start.svelte';
-	import KeyPress from './KeyPress.svelte';
-	import * as oneKey from './oneKey';
+	import { onDestroy } from 'svelte';
+	import { setupMode, trainingType, OneKeyTraining } from './app';
+	import Start from './components/Start.svelte';
+	import TrainingType from './components/TrainingType.svelte';
+	import KeyPress from './components/KeyPress.svelte';
+	import * as oneKey from './trainings/oneKey';
+	import * as randomKey from './trainings/randomKey';
 
-	let setupMode;
 	let targetKey;
 	let lastKey = '&nbsp;';
-	const { setupOk, reset, getNextKey, setupComponent } = oneKey;
+	let { setupOk, reset, getNextKey, setupComponent } = oneKey;
 
-	function onStart() {
+	onDestroy(setupMode.subscribe(value => {
+		if (!value) {
+			start();
+		}
+	}));
+
+	onDestroy(trainingType.subscribe(value => {
+		if (value == OneKeyTraining) {
+			({ setupOk, reset, getNextKey, setupComponent } = oneKey);
+		} else {
+			({ setupOk, reset, getNextKey, setupComponent } = randomKey);
+		}
+	}));
+
+	function start() {
 		reset();
 		next();
 	}
@@ -54,9 +71,10 @@
 </style>
 
 <div class="main">
-	<Start bind:setupMode on:start={onStart} setupOk={$setupOk} />
+	<Start setupOk={$setupOk} />
 
-	{#if setupMode}
+	{#if $setupMode}
+		<TrainingType/>
 		<svelte:component this={setupComponent} />
 	{:else}
 		<KeyPress on:key={onKey} />
