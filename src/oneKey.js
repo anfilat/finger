@@ -1,11 +1,13 @@
 import { writable, derived } from 'svelte/store';
 import { getKeyData, getHandBase } from './keys';
+export { default as setupComponent } from './OneKeySetup.svelte';
 
 export const selectKey = writable('');
 export const setupOk = derived(
 	selectKey,
 	$selectKey => !!$selectKey
 );
+
 let keyData;
 
 export function setSelectKey(key) {
@@ -27,4 +29,8 @@ export function getNextKey() {
 
 	next = getHandBase(keyData);
 	return keyData.key;
+}
+
+export function reset() {
+	next = null;
 }

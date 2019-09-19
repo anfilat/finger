@@ -1,14 +1,15 @@
 <script>
 	import Start from './Start.svelte';
 	import KeyPress from './KeyPress.svelte';
-	import OneKeySetup from './OneKeySetup.svelte';
-	import { setupOk, getNextKey } from './oneKey';
+	import * as oneKey from './oneKey';
 
 	let setupMode;
 	let targetKey;
 	let lastKey = '&nbsp;';
+	const { setupOk, reset, getNextKey, setupComponent } = oneKey;
 
 	function onStart() {
+		reset();
 		next();
 	}
 
@@ -56,7 +57,7 @@
 	<Start bind:setupMode on:start={onStart} setupOk={$setupOk} />
 
 	{#if setupMode}
-		<OneKeySetup/>
+		<svelte:component this={setupComponent} />
 	{:else}
 		<KeyPress on:key={onKey} />
 		<div class="keys">
