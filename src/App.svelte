@@ -1,6 +1,7 @@
 <script>
 	import { onDestroy } from 'svelte';
 	import { setupMode, trainingType, OneKeyTraining, RandomKeyTraining } from './data/app';
+	import { getKeyData } from './data/keys';
 	import Start from './components/Start.svelte';
 	import TrainingType from './components/TrainingType.svelte';
 	import KeyPress from './components/KeyPress.svelte';
@@ -8,7 +9,7 @@
 	import * as randomKey from './trainings/randomKey';
 
 	let targetKey;
-	let lastKey = '&nbsp;';
+	let lastKeys = '';
 	let { setupOk, reset, getNextKey, setupComponent } = oneKey;
 
 	onDestroy(setupMode.subscribe(value => {
@@ -33,10 +34,18 @@
 	function onKey(event) {
 		const key = event.detail.toLowerCase();
 
-		lastKey = key;
+		if (key === 'backspace') {
+			lastKeys = lastKeys.slice(0, -1);
+			return;
+		}
+		if (!getKeyData(key)) {
+			return;
+		}
+
+		lastKeys += key;
 
 		setTimeout(() => {
-			if (key == targetKey) {
+			if (lastKeys == targetKey) {
 				next();
 			}
 		}, 10);
@@ -44,7 +53,7 @@
 
 	function next() {
 		targetKey = getNextKey();
-		lastKey = '&nbsp;';
+		lastKeys = '';
 	}
 </script>
 
@@ -67,6 +76,11 @@
 		font-family: monospace;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+	}
+
+	.lastKeys {
+		display: flex;
 	}
 </style>
 
@@ -79,8 +93,12 @@
 	{:else}
 		<KeyPress on:key={onKey} />
 		<div class="keys">
-			<div class="targetKey">{targetKey}</div>
-			<div class="lastKey">{@html lastKey}</div>
+			<div>{targetKey}</div>
+			<div class="lastKeys">
+				<div>&nbsp</div>
+				{@html lastKeys}
+				<div>&nbsp</div>
+			</div>
 		</div>
 	{/if}
 </div>

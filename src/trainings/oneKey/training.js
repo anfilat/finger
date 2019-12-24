@@ -12,10 +12,11 @@ let keyData;
 export function setSelectKey(key) {
 	key = key.toLowerCase();
 	const data = getKeyData(key);
-	if (data) {
-		keyData = data;
-		selectKey.set(key);
+	if (!data) {
+		return;
 	}
+	keyData = data;
+	selectKey.set(key);
 }
 
 let next;

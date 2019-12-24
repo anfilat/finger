@@ -3,9 +3,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	function onKeyPress(event) {
+	function onKeyDown(event) {
 		dispatch('key', event.key);
 	}
 </script>
 
-<svelte:body on:keypress={onKeyPress} />
+<svelte:body on:keydown={onKeyDown}/>
