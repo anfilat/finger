@@ -1,5 +1,18 @@
 const keys = [
 	{key: 'ё', base: 'ф'},
+	{key: '1', base: 'ф'},
+	{key: '2', base: 'ф'},
+	{key: '3', base: 'ы'},
+	{key: '4', base: 'в'},
+	{key: '5', base: 'а'},
+	{key: '6', base: 'а'},
+	{key: '7', base: 'о'},
+	{key: '8', base: 'л'},
+	{key: '9', base: 'л'},
+	{key: '0', base: 'ж'},
+	{key: '-', base: 'ж'},
+	{key: '=', base: 'ж'},
+	{key: '\\', base: 'ж'},
 
 	{key: 'й', base: 'ф'},
 	{key: 'ц', base: 'ы'},
@@ -35,6 +48,8 @@ const keys = [
 	{key: 'ь', base: 'о'},
 	{key: 'б', base: 'л'},
 	{key: 'ю', base: 'д'},
+	{key: '.', base: 'ж'},
+	{key: ',', base: 'ж'},
 ];
 
 export const leftHand = ['ф', 'ы', 'в', 'а'];

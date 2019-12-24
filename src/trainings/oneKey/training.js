@@ -1,5 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import { getKeyData, getHandBase } from '../../keys';
+import { getKeyData, getHandBase } from '../../data/keys';
 
 export const selectKey = writable('');
 export const setupOk = derived(
@@ -10,6 +10,7 @@ export const setupOk = derived(
 let keyData;
 
 export function setSelectKey(key) {
+	key = key.toLowerCase();
 	const data = getKeyData(key);
 	if (data) {
 		keyData = data;

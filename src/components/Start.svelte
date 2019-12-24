@@ -1,5 +1,5 @@
 <script>
-    import { setupMode } from '../app';
+	export let setupMode;
     export let setupOk;
 </script>
 
@@ -18,7 +18,7 @@
 <svelte:body on:click="{() => setupMode.set(true)}" />
 
 {#if $setupMode}
-    <button on:click|stopPropagation="{() => setupMode.set(false)}" disabled={!setupOk}>
+    <button on:click|stopPropagation="{() => setupMode.set(false)}" disabled={!$setupOk}>
         Start
     </button>
 {/if}

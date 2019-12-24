@@ -1,7 +1,7 @@
-import { writable } from 'svelte/store';
-import { getRandomKeyData, getHandBase } from '../../keys';
+import { readable } from 'svelte/store';
+import { getRandomKeyData, getHandBase } from '../../data/keys';
 
-export const setupOk = writable(true);
+export const setupOk = readable(true, () => {});
 
 let next;
 

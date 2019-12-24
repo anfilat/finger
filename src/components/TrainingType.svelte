@@ -1,5 +1,7 @@
 <script>
-	import { OneKeyTraining, RandomKeyTraining, trainingType } from '../app';
+	export let OneKeyTraining;
+	export let RandomKeyTraining;
+	export let trainingType;
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 <script>
 	import { onDestroy } from 'svelte';
-	import { setupMode, trainingType, OneKeyTraining } from './app';
+	import { setupMode, trainingType, OneKeyTraining, RandomKeyTraining } from './data/app';
 	import Start from './components/Start.svelte';
 	import TrainingType from './components/TrainingType.svelte';
 	import KeyPress from './components/KeyPress.svelte';
@@ -71,10 +71,10 @@
 </style>
 
 <div class="main">
-	<Start setupOk={$setupOk} />
+	<Start {setupOk} {setupMode}/>
 
 	{#if $setupMode}
-		<TrainingType/>
+		<TrainingType {OneKeyTraining} {RandomKeyTraining} {trainingType} />
 		<svelte:component this={setupComponent} />
 	{:else}
 		<KeyPress on:key={onKey} />
