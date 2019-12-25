@@ -1,5 +1,6 @@
 <script>
 	import { onDestroy } from 'svelte';
+	import 'bulma/css/bulma.css'
 	import { setupMode, trainingType, OneKeyTraining, RandomKeyTraining } from './data/app';
 	import { getKeyData } from './data/keys';
 	import Start from './components/Start.svelte';
@@ -59,12 +60,13 @@
 
 <style>
 	.main {
-		min-height: 100vh;
-		box-sizing: border-box;
+		padding: 20px;
+	}
+
+	.main-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 20px;
 	}
 
 	.keys {
@@ -73,7 +75,6 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 		font-size: 64px;
-		font-family: monospace;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -84,21 +85,23 @@
 	}
 </style>
 
-<div class="main">
-	<Start {setupOk} {setupMode}/>
+<div class="hero is-fullheight main">
+	<div class="container main-container">
+		<Start {setupOk} {setupMode}/>
 
-	{#if $setupMode}
-		<TrainingType {OneKeyTraining} {RandomKeyTraining} {trainingType} />
-		<svelte:component this={setupComponent} />
-	{:else}
-		<KeyPress on:key={onKey} />
-		<div class="keys">
-			<div>{targetKey}</div>
-			<div class="lastKeys">
-				<div>&nbsp</div>
-				{@html lastKeys}
-				<div>&nbsp</div>
+		{#if $setupMode}
+			<TrainingType {OneKeyTraining} {RandomKeyTraining} {trainingType} />
+			<svelte:component this={setupComponent} />
+		{:else}
+			<KeyPress on:key={onKey} />
+			<div class="keys is-family-monospace">
+				<div>{targetKey}</div>
+				<div class="lastKeys">
+					<div>&nbsp</div>
+					{@html lastKeys}
+					<div>&nbsp</div>
+				</div>
 			</div>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>
