@@ -4,7 +4,7 @@
 	const dispatch = createEventDispatcher();
 
 	function onKeyDown(event) {
-		dispatch('key', event.key);
+		dispatch('key', event.key.toLowerCase());
 	}
 </script>
 

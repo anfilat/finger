@@ -1,5 +1,5 @@
 import { readable } from 'svelte/store';
-import { getRandomKeyData, getHandBase } from '../../data/keys';
+import { getRandomKeys } from '../../data/keys';
 
 export const setupOk = readable(true, () => {});
 
@@ -12,9 +12,9 @@ export function getNextKey() {
 		return result;
 	}
 
-	const keyData = getRandomKeyData();
-	next = getHandBase(keyData);
-	return keyData.key;
+	const keys = getRandomKeys();
+	next = keys[1];
+	return keys[0];
 }
 
 export function reset() {

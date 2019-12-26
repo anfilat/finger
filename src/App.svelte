@@ -2,12 +2,12 @@
 	import { onDestroy } from 'svelte';
 	import 'bulma/css/bulma.css'
 	import { setupMode, trainingType, OneKeyTraining, RandomKeyTraining } from './data/app';
-	import { getKeyData } from './data/keys';
+	import { isKey } from './data/keys';
 	import Start from './components/Start.svelte';
 	import TrainingType from './components/TrainingType.svelte';
 	import KeyPress from './components/KeyPress.svelte';
-	import * as oneKey from './trainings/oneKey';
-	import * as randomKey from './trainings/randomKey';
+	import * as oneKey from './trainings/selectKeys';
+	import * as randomKey from './trainings/randomKeys';
 
 	let targetKey;
 	let lastKeys = '';
@@ -33,13 +33,14 @@
 	}
 
 	function onKey(event) {
-		const key = event.detail.toLowerCase();
+		const key = event.detail;
 
 		if (key === 'backspace') {
 			lastKeys = lastKeys.slice(0, -1);
 			return;
 		}
-		if (!getKeyData(key)) {
+
+		if (!isKey(key)) {
 			return;
 		}
 

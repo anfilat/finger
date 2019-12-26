@@ -66,18 +66,24 @@ export const hands = {
 	ж: rightHand,
 };
 
-export function getKeyData(value) {
-	value = value.toLowerCase();
-	return keys.find(({key}) => key == value);
+export function isKey(value) {
+	return keys.some(({key}) => key == value);
 }
 
-export function getHandBase(keyData) {
+export function getFromSelectedKeys(selected) {
+	const key = selected[Math.floor(Math.random() * selected.length)];
+	const keyData = keys.find(data => data.key === key);
+	return [keyData.key, getHandBase(keyData)];
+}
+
+export function getRandomKeys() {
+	const keyData = keys[Math.floor(Math.random() * keys.length)];
+	return [keyData.key, getHandBase(keyData)];
+}
+
+function getHandBase(keyData) {
 	if (keyData.base) {
 		return hands[keyData.base][Math.floor(Math.random() * 4)];
 	}
 	return null;
-}
-
-export function getRandomKeyData() {
-	return keys[Math.floor(Math.random() * keys.length)];
 }
