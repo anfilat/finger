@@ -9,9 +9,7 @@
 	import * as oneKey from './trainings/selectKeys';
 	import * as randomKey from './trainings/randomKeys';
 
-	let targetKey;
-	let lastKeys = '';
-	let { setupOk, reset, getNextKey, setupComponent } = oneKey;
+	let { setupOk, getNextKeys, setupComponent } = oneKey;
 
 	onDestroy(setupMode.subscribe(value => {
 		if (!value) {
@@ -21,14 +19,18 @@
 
 	onDestroy(trainingType.subscribe(value => {
 		if (value == OneKeyTraining) {
-			({ setupOk, reset, getNextKey, setupComponent } = oneKey);
+			({ setupOk, getNextKeys, setupComponent } = oneKey);
 		} else {
-			({ setupOk, reset, getNextKey, setupComponent } = randomKey);
+			({ setupOk, getNextKeys, setupComponent } = randomKey);
 		}
 	}));
 
+	let targetKey;
+	let nextKey;
+	let lastKeys = '';
+
 	function start() {
-		reset();
+		nextKey = null;
 		next();
 	}
 
@@ -54,8 +56,15 @@
 	}
 
 	function next() {
-		targetKey = getNextKey();
 		lastKeys = '';
+
+		if (nextKey) {
+			targetKey = nextKey;
+			nextKey = null;
+			return;
+		}
+
+		[targetKey, nextKey] = getNextKeys();
 	}
 </script>
 

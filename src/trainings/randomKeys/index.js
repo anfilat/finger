@@ -1,1 +1,1 @@
-export { setupOk, getNextKey, reset } from './training';
+export { setupOk, getNextKeys } from './training';

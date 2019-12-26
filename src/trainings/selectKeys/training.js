@@ -2,11 +2,6 @@ import { writable, derived } from 'svelte/store';
 import { isKey, getFromSelectedKeys } from '../../data/keys';
 
 export const selectKeys = writable('');
-export const setupOk = derived(
-	selectKeys,
-	$selectKeys => $selectKeys.length > 0
-);
-
 let selected = '';
 
 export function onKey(event) {
@@ -26,20 +21,11 @@ export function onKey(event) {
 	selectKeys.set(selected);
 }
 
-let next;
+export const setupOk = derived(
+	selectKeys,
+	$selectKeys => $selectKeys.length > 0
+);
 
-export function getNextKey() {
-	if (next) {
-		const result = next;
-		next = null;
-		return result;
-	}
-
-	const keys = getFromSelectedKeys(selected);
-	next = keys[1];
-	return keys[0];
-}
-
-export function reset() {
-	next = null;
+export function getNextKeys() {
+	return getFromSelectedKeys(selected);
 }
