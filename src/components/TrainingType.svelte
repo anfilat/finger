@@ -1,8 +1,7 @@
 <script>
 	import 'bulma/css/bulma.css'
 
-	export let SelectKeysTraining;
-	export let RandomKeyTraining;
+	export let training;
 	export let trainingType;
 </script>
 
@@ -11,11 +10,11 @@
 </div>
 <div class="control block">
 	<label class="radio">
-		<input type=radio bind:group={$trainingType} value={SelectKeysTraining}>
+		<input type=radio bind:group={$trainingType} value={training.selectKeys}>
 		Select Keys
 	</label>
 	<label class="radio">
-		<input type=radio bind:group={$trainingType} value={RandomKeyTraining}>
+		<input type=radio bind:group={$trainingType} value={training.randomKey}>
 		Random Key
 	</label>
 </div>

@@ -8,16 +8,25 @@ export function onKey(event) {
 	const key = event.detail;
 
 	if (key === 'backspace') {
-		selected = selected.slice(0, -1);
-		selectKeys.set(selected);
-		return;
+		return removeLastKey();
 	}
-
 	if (!isKey(key)) {
 		return;
 	}
+	if (selected.includes(key)) {
+		return;
+	}
 
-	selected = selected + key;
+	addKey(key);
+}
+
+function removeLastKey() {
+	selected = selected.slice(0, -1);
+	selectKeys.set(selected);
+}
+
+function addKey(key) {
+	selected += key;
 	selectKeys.set(selected);
 }
 

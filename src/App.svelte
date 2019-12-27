@@ -1,7 +1,7 @@
 <script>
 	import { onDestroy } from 'svelte';
 	import 'bulma/css/bulma.css'
-	import { setupMode, trainingType, SelectKeysTraining, RandomKeyTraining } from './data/app';
+	import { training, trainingType, setupMode } from './data/app';
 	import Start from './components/Start.svelte';
 	import TrainingType from './components/TrainingType.svelte';
 	import KeyPress from './components/KeyPress.svelte';
@@ -17,7 +17,7 @@
 	}));
 
 	onDestroy(trainingType.subscribe(value => {
-		if (value == SelectKeysTraining) {
+		if (value == training.selectKeys) {
 			({ setupOk, getNextKeys, setupComponent } = oneKey);
 		} else {
 			({ setupOk, getNextKeys, setupComponent } = randomKey);
@@ -101,7 +101,7 @@
 		<Start {setupOk} {setupMode}/>
 
 		{#if $setupMode}
-			<TrainingType {SelectKeysTraining} {RandomKeyTraining} {trainingType} />
+			<TrainingType {training} {trainingType} />
 			<svelte:component this={setupComponent} />
 		{:else}
 			<KeyPress on:key={onKey} />

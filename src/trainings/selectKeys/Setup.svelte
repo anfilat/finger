@@ -4,7 +4,7 @@
 </script>
 
 <style>
-	.key {
+	.keys {
 		font-size: 64px;
 	}
 </style>
@@ -14,6 +14,6 @@
 <div>
 	Press training keys
 </div>
-<div class="key">
+<div class="keys">
 	{$selectKeys}
 </div>

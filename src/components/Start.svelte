@@ -5,7 +5,7 @@
     export let setupOk;
 </script>
 
-<svelte:body on:click="{() => setupMode.set(true)}" />
+<svelte:body on:click="{() => setupMode.set(true)}"/>
 
 {#if $setupMode}
     <button
