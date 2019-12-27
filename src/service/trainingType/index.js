@@ -6,4 +6,5 @@ export const training = {
 };
 
 export const trainingType = writable(training.selectKeys);
-export const setupMode = writable(true);
+
+export { default as TrainingType } from './TrainingType.svelte';

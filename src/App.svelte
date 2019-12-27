@@ -1,9 +1,8 @@
 <script>
 	import { onDestroy } from 'svelte';
 	import 'bulma/css/bulma.css'
-	import { training, trainingType, setupMode } from './data/app';
-	import Start from './components/Start.svelte';
-	import TrainingType from './components/TrainingType.svelte';
+	import { TrainingType, trainingType, training } from './service/trainingType';
+	import { Start, setupMode } from './service/setupMode';
 	import KeyPress from './components/KeyPress.svelte';
 	import * as oneKey from './trainings/selectKeys';
 	import * as randomKey from './trainings/randomKeys';
@@ -98,13 +97,13 @@
 
 <div class="hero is-fullheight main">
 	<div class="container main-container">
-		<Start {setupOk} {setupMode}/>
+		<Start {setupOk}/>
 
 		{#if $setupMode}
-			<TrainingType {training} {trainingType} />
-			<svelte:component this={setupComponent} />
+			<TrainingType/>
+			<svelte:component this={setupComponent}/>
 		{:else}
-			<KeyPress on:key={onKey} />
+			<KeyPress on:key={onKey}/>
 			<div class="keys is-family-monospace">
 				<div>{targetKey}</div>
 				<div class="lastKeys">
