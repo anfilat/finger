@@ -2,7 +2,6 @@
 	import { onDestroy } from 'svelte';
 	import 'bulma/css/bulma.css'
 	import { setupMode, trainingType, SelectKeysTraining, RandomKeyTraining } from './data/app';
-	import { isKey } from './data/keys';
 	import Start from './components/Start.svelte';
 	import TrainingType from './components/TrainingType.svelte';
 	import KeyPress from './components/KeyPress.svelte';
@@ -39,16 +38,18 @@
 
 		if (key === 'backspace') {
 			lastKeys = lastKeys.slice(0, -1);
-			return;
+		} else if (key.length === 1) {
+			lastKeys += key;
 		}
+		check();
+	}
 
-		if (!isKey(key)) {
-			return;
-		}
+	let timer = null;
 
-		lastKeys += key;
-
-		setTimeout(() => {
+	function check() {
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			timer = null;
 			if (lastKeys == targetKey) {
 				next();
 			}
