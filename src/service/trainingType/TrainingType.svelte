@@ -1,6 +1,7 @@
 <script>
 	import 'bulma/css/bulma.css'
-	import { training, trainingType } from './index';
+	import {training} from './consts';
+	import {trainingType} from './store';
 </script>
 
 <div class="block">

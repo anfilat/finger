@@ -1,6 +1,16 @@
 <script>
 	import KeyPress from '../../components/KeyPress.svelte';
-    import { selectKeys, onKey } from './training';
+    import {selectKeys} from './store';
+
+	function onKey(event) {
+		const key = event.detail;
+
+		if (key === 'backspace') {
+			selectKeys.removeLastKey();
+		} else {
+			selectKeys.addKey(key);
+		}
+	}
 </script>
 
 <style>
