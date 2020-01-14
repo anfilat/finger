@@ -2,6 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import 'bulma/css/bulma.css'
 	import { TrainingType, trainingType, training } from './service/trainingType';
+	import { SelectedLanguage } from './service/language';
 	import { Start, setupMode } from './service/setupMode';
 	import KeyPress from './components/KeyPress.svelte';
 	import * as oneKey from './trainings/selectKeys';
@@ -100,6 +101,7 @@
 		<Start {setupOk}/>
 
 		{#if $setupMode}
+			<SelectedLanguage/>
 			<TrainingType/>
 			<svelte:component this={setupComponent}/>
 		{:else}

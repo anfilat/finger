@@ -1,8 +1,9 @@
 import {writable} from 'svelte/store';
 import {isKey} from '../../data/keys';
+import {selectedLanguage} from "../../service/language";
 
 export const selectKeys = (function() {
-	const { subscribe, update } = writable('');
+	const { subscribe, update, set } = writable('');
 
 	return {
 		subscribe,
@@ -19,5 +20,10 @@ export const selectKeys = (function() {
 					: keys + key;
 			});
 		},
+		reset: () => {
+			set('');
+		},
 	};
 })();
+
+selectedLanguage.subscribe(() => selectKeys.reset());
