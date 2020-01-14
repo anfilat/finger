@@ -1,5 +1,3 @@
 .idea
 node_modules
-public/bundle.*
-public/bulma.css
 package-lock.json
