@@ -1067,7 +1067,7 @@ var app = (function () {
     }
 
     function getRandomKey() {
-    	const keyData = getRandomItem(keys);
+    	const keyData = getRandomItem(keys[lang]);
     	return [keyData.key, getHandBase(keyData)];
     }
 
