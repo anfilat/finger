@@ -14,7 +14,7 @@ export function getFromSelectedKeys(selected) {
 }
 
 export function getRandomKey() {
-	const keyData = getRandomItem(keys);
+	const keyData = getRandomItem(keys[lang]);
 	return [keyData.key, getHandBase(keyData)];
 }
 
