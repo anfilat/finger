@@ -1174,6 +1174,7 @@ var app = (function () {
     		{key: '=', base: rightHand},
     		{key: '\\', base: rightHand},
 
+    		{key: '~', base: leftHand},
     		{key: '!', base: leftHand},
     		{key: '@', base: leftHand},
     		{key: '#', base: leftHand},
