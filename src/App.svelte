@@ -6,6 +6,7 @@
 	import KeyPress from './components/KeyPress.svelte';
 	import * as oneKey from './trainings/selectKeys';
 	import * as randomKey from './trainings/randomKeys';
+	import * as phrases from './trainings/phrases';
 
 	let { setupOk, getNextKeys, setupComponent } = oneKey;
 
@@ -16,19 +17,25 @@
 	}));
 
 	onDestroy(trainingType.subscribe(value => {
-		if (value == training.selectKeys) {
-			({ setupOk, getNextKeys, setupComponent } = oneKey);
-		} else {
-			({ setupOk, getNextKeys, setupComponent } = randomKey);
+		switch (value) {
+			case training.selectKeys:
+				({ setupOk, getNextKeys, setupComponent } = oneKey);
+				break;
+			case training.randomKey:
+				({ setupOk, getNextKeys, setupComponent } = randomKey);
+				break;
+			case training.phrases:
+				({ setupOk, getNextKeys, setupComponent } = phrases);
+				break;
 		}
 	}));
 
-	let targetKey;
-	let nextKey;
+	let targetKeys;
+	let nextKeys;
 	let lastKeys = '';
 
 	function start() {
-		nextKey = null;
+		nextKeys = null;
 		next();
 	}
 
@@ -49,7 +56,7 @@
 		clearTimeout(timer);
 		timer = setTimeout(() => {
 			timer = null;
-			if (lastKeys == targetKey) {
+			if (lastKeys == targetKeys) {
 				next();
 			}
 		}, 10);
@@ -58,13 +65,13 @@
 	function next() {
 		lastKeys = '';
 
-		if (nextKey) {
-			targetKey = nextKey;
-			nextKey = null;
+		if (nextKeys) {
+			targetKeys = nextKeys;
+			nextKeys = null;
 			return;
 		}
 
-		[targetKey, nextKey] = getNextKeys();
+		[targetKeys, nextKeys] = getNextKeys();
 	}
 </script>
 
@@ -95,6 +102,7 @@
 		flex-direction: column;
 		align-items: center;
         font-family: monospace;
+		white-space: nowrap;
 	}
 
 	.lastKeys {
@@ -113,7 +121,7 @@
 		{:else}
 			<KeyPress on:key={onKey}/>
 			<div class="keys">
-				<div>{targetKey}</div>
+				<div>{targetKeys}</div>
 				<div class="lastKeys">
 					<div>&nbsp</div>
 					{@html lastKeys}

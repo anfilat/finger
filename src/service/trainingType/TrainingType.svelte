@@ -15,4 +15,8 @@
 		<input type=radio bind:group={$trainingType} value={training.randomKey}>
 		Random Key
 	</label>
+	<label class="radio">
+		<input type=radio bind:group={$trainingType} value={training.phrases}>
+		Phrases
+	</label>
 </div>
