@@ -35,7 +35,7 @@
 	function onKey(event) {
 		const key = event.detail;
 
-		if (key === 'backspace') {
+		if (key.toLowerCase() === 'backspace') {
 			lastKeys = lastKeys.slice(0, -1);
 		} else if (key.length === 1) {
 			lastKeys += key;

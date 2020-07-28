@@ -3,7 +3,7 @@
     import {selectKeys} from './store';
 
 	function onKey(event) {
-		const key = event.detail;
+		const key = event.detail.toLowerCase();
 
 		if (key === 'backspace') {
 			selectKeys.removeLastKey();
