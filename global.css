@@ -1,7 +1,6 @@
 html, body {
 	position: relative;
 	width: 100%;
-	height: 100%;
 }
 
 body {
@@ -35,7 +34,7 @@ input, button, select, textarea {
 	font-family: inherit;
 	font-size: inherit;
 	padding: 0.4em;
-	margin: 0 0 0.5em 0;
+	margin: 0;
 	box-sizing: border-box;
 	border: 1px solid #ccc;
 	border-radius: 2px;
@@ -61,4 +60,20 @@ button:active {
 
 button:focus {
 	border-color: #666;
+}
+
+.block {
+    margin-bottom: 24px;
+}
+
+.flex {
+    display: flex;
+}
+
+.radio {
+    cursor: pointer;
+}
+
+.radio + .radio {
+    margin-left: 12px;
 }
