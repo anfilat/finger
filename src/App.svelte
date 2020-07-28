@@ -1,6 +1,5 @@
 <script>
 	import { onDestroy } from 'svelte';
-	import 'bulma/css/bulma.css'
 	import { TrainingType, trainingType, training } from './service/trainingType';
 	import { SelectedLanguage } from './service/language';
 	import { Start, setupMode } from './service/setupMode';
@@ -71,7 +70,13 @@
 
 <style>
 	.main {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 		padding: 20px;
+        min-height: 100vh;
+        box-sizing: border-box;
 	}
 
 	.main-container {
@@ -89,6 +94,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+        font-family: monospace;
 	}
 
 	.lastKeys {
@@ -96,8 +102,8 @@
 	}
 </style>
 
-<div class="hero is-fullheight main">
-	<div class="container main-container">
+<div class="main">
+	<div class="main-container">
 		<Start {setupOk}/>
 
 		{#if $setupMode}
@@ -106,7 +112,7 @@
 			<svelte:component this={setupComponent}/>
 		{:else}
 			<KeyPress on:key={onKey}/>
-			<div class="keys is-family-monospace">
+			<div class="keys">
 				<div>{targetKey}</div>
 				<div class="lastKeys">
 					<div>&nbsp</div>
