@@ -106,7 +106,7 @@
 	}
 
 	.lastKeys {
-		display: flex;
+		margin: 0;
 	}
 </style>
 
@@ -122,11 +122,9 @@
 			<KeyPress on:key={onKey}/>
 			<div class="keys">
 				<div>{targetKeys}</div>
-				<div class="lastKeys">
-					<div>&nbsp</div>
-					{@html lastKeys}
-					<div>&nbsp</div>
-				</div>
+				<pre class="lastKeys">
+					{@html lastKeys ? lastKeys : ' '}
+				</pre>
 			</div>
 		{/if}
 	</div>
