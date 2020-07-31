@@ -30,9 +30,10 @@
 		}
 	}));
 
-	let targetKeys;
+	let targetKeys = '';
 	let nextKeys;
 	let lastKeys = '';
+	let entered = '';
 
 	function start() {
 		nextKeys = null;
@@ -73,6 +74,22 @@
 
 		[targetKeys, nextKeys] = getNextKeys();
 	}
+
+	$: if (lastKeys) {
+		entered = lastKeys;
+
+		const len = Math.min(targetKeys.length, lastKeys.length);
+		for (let i = 0; i < len; i++) {
+			if (targetKeys[i] != lastKeys[i]) {
+				entered = entered.substring(0, i) +
+					`<span class='error'>${entered[i]}</span>` +
+					entered.substring(i + 1);
+				break;
+			}
+		}
+	} else {
+		entered = ' ';
+	}
 </script>
 
 <style>
@@ -108,6 +125,10 @@
 	.lastKeys {
 		margin: 0;
 	}
+
+	:global(.error) {
+		color: #f33;
+	}
 </style>
 
 <div class="main">
@@ -123,7 +144,7 @@
 			<div class="keys">
 				<div>{targetKeys}</div>
 				<pre class="lastKeys">
-					{@html lastKeys ? lastKeys : ' '}
+					{@html entered}
 				</pre>
 			</div>
 		{/if}
