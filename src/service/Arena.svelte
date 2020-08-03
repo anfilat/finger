@@ -52,14 +52,21 @@
         const len = Math.min(targetKeys.length, lastKeys.length);
         for (let i = 0; i < len; i++) {
             if (targetKeys[i] != lastKeys[i]) {
-                entered = entered.substring(0, i) +
-                    `<span class='error'>${entered[i]}</span>` +
-                    entered.substring(i + 1);
+                entered = htmlSafe(entered.substring(0, i)) +
+                    `<span class='error'>${htmlSafe(entered[i])}</span>` +
+                    htmlSafe(entered.substring(i + 1));
                 break;
             }
         }
     } else {
         entered = '&nbsp;';
+    }
+
+    function htmlSafe(str) {
+        return str
+            .replace(/\s/g, '&centerdot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
     }
 </script>
 
