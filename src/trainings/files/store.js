@@ -21,7 +21,10 @@ export const files = (function() {
 
             const lines = text
                 .split('\n')
-                .map(line => line.trim())
+                .map(line => line
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                )
                 .filter(line => line);
 
             items.push({

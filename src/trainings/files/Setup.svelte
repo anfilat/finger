@@ -2,13 +2,15 @@
     import {currentFile, files} from './store';
 
     function readFile(event) {
-        const file = event.target.files[0];
+        const input = event.target;
+        const file = input.files[0];
         if (!file) {
             return;
         }
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = (event) => {
             files.add(file.name, event.target.result);
+            input.value = '';
         };
         reader.readAsText(file);
     }
