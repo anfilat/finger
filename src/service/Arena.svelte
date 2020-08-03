@@ -47,14 +47,14 @@
     }
 
     $: if (lastKeys) {
-        entered = lastKeys;
+        entered = htmlSafe(lastKeys);
 
         const len = Math.min(targetKeys.length, lastKeys.length);
         for (let i = 0; i < len; i++) {
             if (targetKeys[i] != lastKeys[i]) {
-                entered = htmlSafe(entered.substring(0, i)) +
-                    `<span class='error'>${htmlSafe(entered[i])}</span>` +
-                    htmlSafe(entered.substring(i + 1));
+                entered = htmlSafe(lastKeys.substring(0, i)) +
+                    `<span class='error'>${htmlSafe(lastKeys[i])}</span>` +
+                    htmlSafe(lastKeys.substring(i + 1));
                 break;
             }
         }
