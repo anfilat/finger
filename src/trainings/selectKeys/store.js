@@ -7,10 +7,10 @@ export const selectKeys = (function() {
 
 	return {
 		subscribe,
-		removeLastKey: () => {
+		removeLastKey() {
 			update(keys => keys.slice(0, -1));
 		},
-		addKey: (key) => {
+		addKey(key) {
 			if (!isKey(key)) {
 				return;
 			}
@@ -20,7 +20,7 @@ export const selectKeys = (function() {
 					: keys + key;
 			});
 		},
-		reset: () => {
+		reset() {
 			set('');
 		},
 	};

@@ -1,5 +1,6 @@
 <script>
-    import KeyPress from './KeyPress.svelte';
+    import KeyPress from '../components/KeyPress.svelte';
+    import {trainingType, training} from './trainingType';
 
     export let getNextKeys;
 
@@ -58,7 +59,7 @@
             }
         }
     } else {
-        entered = ' ';
+        entered = '&nbsp;';
     }
 </script>
 
@@ -76,6 +77,13 @@
         white-space: nowrap;
     }
 
+    .keys.long {
+        font-size: 26px;
+        white-space: normal;
+        align-items: start;
+        width: 80%;
+    }
+
     .lastKeys {
         margin: 0;
     }
@@ -86,9 +94,9 @@
 </style>
 
 <KeyPress on:key={onKey}/>
-<div class="keys">
+<div class="keys" class:long={$trainingType === training.files}>
     <div>{targetKeys}</div>
-    <pre class="lastKeys">
+    <div class="lastKeys">
 		{@html entered}
-	</pre>
+	</div>
 </div>

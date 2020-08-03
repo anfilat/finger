@@ -19,4 +19,8 @@
 		<input type=radio bind:group={$trainingType} value={training.phrases}>
 		Phrases
 	</label>
+	<label class="radio">
+		<input type=radio bind:group={$trainingType} value={training.files}>
+		Files
+	</label>
 </div>
