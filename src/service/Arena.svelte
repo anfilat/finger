@@ -53,8 +53,7 @@
         for (let i = 0; i < len; i++) {
             if (targetKeys[i] != lastKeys[i]) {
                 entered = htmlSafe(lastKeys.substring(0, i)) +
-                    `<span class='error'>${htmlSafe(lastKeys[i])}</span>` +
-                    htmlSafe(lastKeys.substring(i + 1));
+                    `<span class='error'>${htmlSafe(lastKeys.substring(i))}</span>`
                 break;
             }
         }
