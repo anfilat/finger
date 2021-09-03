@@ -14,11 +14,14 @@
     function onKey(event) {
         const key = event.detail;
 
-        if (key.toLowerCase() === 'backspace') {
-            lastKeys = lastKeys.slice(0, -1);
-        } else if (key.length === 1) {
+        if (key.length === 1) {
             lastKeys += key;
         }
+        check();
+    }
+
+    function onBackSpace() {
+        lastKeys = lastKeys.slice(0, -1);
         check();
     }
 
@@ -99,7 +102,10 @@
     }
 </style>
 
-<KeyPress on:key={onKey}/>
+<KeyPress
+    on:key={onKey}
+    on:backspace={onBackSpace}
+/>
 <div class="keys" class:long={$trainingType === training.files}>
     <div>{targetKeys}</div>
     <div class="lastKeys">

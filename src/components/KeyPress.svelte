@@ -3,9 +3,18 @@
 
 	const dispatch = createEventDispatcher();
 
-	function onKeyDown(event) {
-		dispatch('key', event.key);
-	}
+    function onKeypress(event) {
+        dispatch('key', event.key);
+    }
+
+    function onKeyDown(event) {
+        if (event.key.toLowerCase() === 'backspace') {
+            dispatch('backspace');
+        }
+    }
 </script>
 
-<svelte:body on:keydown={onKeyDown}/>
+<svelte:body
+    on:keypress={onKeypress}
+    on:keydown={onKeyDown}
+/>
