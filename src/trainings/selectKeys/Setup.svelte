@@ -4,12 +4,11 @@
 
 	function onKey(event) {
 		const key = event.detail.toLowerCase();
+		selectKeys.addKey(key);
+	}
 
-		if (key === 'backspace') {
-			selectKeys.removeLastKey();
-		} else {
-			selectKeys.addKey(key);
-		}
+	function onBackSpace() {
+		selectKeys.removeLastKey();
 	}
 </script>
 
@@ -19,7 +18,10 @@
 	}
 </style>
 
-<KeyPress on:key={onKey}/>
+<KeyPress
+	on:key={onKey}
+	on:backspace={onBackSpace}
+/>
 
 <div>
 	Press training keys
