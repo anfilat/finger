@@ -18,6 +18,10 @@ export function getRandomKey() {
 	return [keyData.key, getHandBase(keyData)];
 }
 
+export function getKeys() {
+	return keys[lang].reduce((keys, data) => keys + data.key, '');
+}
+
 function getHandBase(keyData) {
 	return keyData.base
 		? getRandomItem(keyData.base[lang])

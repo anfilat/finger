@@ -1,5 +1,6 @@
 import {writable} from 'svelte/store';
 import md5 from 'md5';
+import {getKeys} from "../../data/keys";
 
 export const currentFile = writable(null);
 
@@ -19,10 +20,13 @@ export const files = (function() {
                 return;
             }
 
+            const keys = getKeys();
+
             const lines = text
                 .split('\n')
-                .map(line => line
-                    .replace(/\s+/g, ' ')
+                .map(line => [...line]
+                    .map(l => keys.includes(l.toLowerCase()) ? l : ' ')
+                    .join('')
                     .trim()
                 )
                 .filter(line => line);
