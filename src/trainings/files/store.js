@@ -27,6 +27,7 @@ export const files = (function() {
                 .map(line => [...line]
                     .map(l => keys.includes(l.toLowerCase()) ? l : ' ')
                     .join('')
+                    .replace(/\s+/g, ' ')
                     .trim()
                 )
                 .filter(line => line);
