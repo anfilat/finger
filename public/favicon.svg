@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- Клавиша -->
+  <rect x="10" y="10" width="40" height="40" rx="4" fill="currentColor" opacity="0.1" stroke="currentColor" stroke-width="2"/>
+  
+  <!-- Буква F -->
+  <text x="30" y="38" font-family="monospace" font-size="24" font-weight="bold" fill="currentColor" text-anchor="middle">F</text>
+</svg>
