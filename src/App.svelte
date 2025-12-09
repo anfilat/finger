@@ -1,14 +1,63 @@
-<script>
-  // Главный компонент приложения
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { appStore, setMode, resetToSettings } from './stores/app.js';
+  import Settings from './components/Settings.svelte';
+  import Arena from './components/Arena.svelte';
+  import { loadFilesFromStorage, loadFileLinesFromStorage } from './lib/fileManager.js';
+  import { get } from 'svelte/store';
+
+  // Инициализация состояния из localStorage при загрузке
+  onMount(() => {
+    // Загружаем список файлов из localStorage
+    const files = loadFilesFromStorage();
+
+    // Загружаем строки для каждого файла
+    files.forEach(file => {
+      const lines = loadFileLinesFromStorage(file.id);
+      if (lines) {
+        // Обновляем информацию о файле с количеством строк
+        file.count = lines.length;
+      }
+    });
+
+    // Обновляем состояние приложения
+    appStore.update(state => ({
+      ...state,
+      files: files,
+      activeFileId: files.length > 0 ? files[0].id : null
+    }));
+  });
+
+  // Обработка клика по телу страницы для возврата в настройки
+  function handleBodyClick() {
+    if (get(appStore).mode === 'arena') {
+      resetToSettings();
+    }
+  }
 </script>
 
-<main>
-  <h1>Finger Typing Tutor</h1>
+<main on:click={handleBodyClick}>
+  {#if $appStore.mode === 'settings'}
+    <Settings />
+  {:else if $appStore.mode === 'arena'}
+    <Arena />
+  {/if}
 </main>
 
 <style>
   :global(body) {
     margin: 0;
     font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f5f5f5;
+  }
+
+  main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
   }
 </style>
