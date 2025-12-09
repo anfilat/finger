@@ -99,11 +99,16 @@
 </script>
 
 <div class="settings">
-  <h2>Настройки</h2>
+  <!-- Кнопка Start -->
+  <div class="setting-group">
+    <button class="start-button" disabled={!canStart} onclick={handleStart}>
+      Start
+    </button>
+  </div>
 
   <!-- Выбор языка -->
   <div class="setting-group">
-    <label>Язык:</label>
+    <div class="group-label">Select language</div>
     <div class="radio-group">
       <label>
         <input type="radio" name="language" value="english" checked={language === 'english'} 
@@ -120,7 +125,7 @@
 
   <!-- Выбор типа тренировки -->
   <div class="setting-group">
-    <label>Тип тренировки:</label>
+    <div class="group-label">Select training</div>
     <div class="radio-group">
       <label>
         <input type="radio" name="training" value="select-keys" checked={trainingType === 'select-keys'} 
@@ -130,7 +135,7 @@
       <label>
         <input type="radio" name="training" value="random-key" checked={trainingType === 'random-key'} 
                onchange={() => setTrainingType('random-key')} />
-        Random Key
+        Random Keys
       </label>
       <label>
         <input type="radio" name="training" value="phrases" checked={trainingType === 'phrases'} 
@@ -148,7 +153,7 @@
   <!-- Настройки для Select Keys -->
   {#if trainingType === 'select-keys'}
     <div class="setting-group">
-      <label>Выбранные клавиши:</label>
+      <div class="group-label">Press training keys</div>
       <div class="key-input-container">
         <input
           type="text"
@@ -174,7 +179,7 @@
   <!-- Настройки для Files -->
   {#if trainingType === 'files'}
     <div class="setting-group">
-      <label>Загрузить файл:</label>
+      <div class="group-label">Загрузить файл:</div>
       <input
         type="file"
         accept=".txt"
@@ -205,50 +210,40 @@
       {/if}
     </div>
   {/if}
-
-  <!-- Кнопка Start -->
-  <div class="setting-group">
-    <button class="start-button" disabled={!canStart} onclick={handleStart}>
-      Start
-    </button>
-  </div>
 </div>
 
 <style>
   .settings {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  h2 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
+    padding-top: 20px;
+    text-align: center;
   }
 
   .setting-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 24px;
   }
 
-  .setting-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+  .group-label {
+    margin-bottom: 24px;
   }
 
   .radio-group {
     display: flex;
-    gap: 1rem;
+    gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .radio-group label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 6px;
     font-weight: normal;
     cursor: pointer;
   }
+
+    .radio-group input {
+      margin: 0;
+    }
 
   .key-input-container {
     display: flex;

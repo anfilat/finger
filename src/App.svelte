@@ -48,7 +48,9 @@
   :global(body) {
     margin: 0;
     font-family: system-ui, -apple-system, sans-serif;
+    color: #111;
     background-color: #f5f5f5;
+    font-size: 16px;
   }
 
   main {
@@ -56,8 +58,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    justify-content: flex-start;
     box-sizing: border-box;
   }
 </style>
