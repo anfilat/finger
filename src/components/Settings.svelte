@@ -1,8 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { appStore, setLanguage, setTrainingType, addSelectedKey, removeLastSelectedKey, setActiveFile, removeFile, addFile } from '../stores/app.js';
-  import type { TrainingType } from '../stores/app.js';
-  import type { Language } from '../lib/keyboard.js';
   import { isValidKey } from '../lib/keyboard.js';
   import { processUploadedFile, saveFileLinesToStorage, saveFilesToStorage } from '../lib/fileManager.js';
   import { get } from 'svelte/store';
@@ -246,23 +244,21 @@
     cursor: pointer;
   }
 
-    .radio-group input {
-      margin: 0;
-    }
+  .radio-group input {
+    margin: 0;
+  }
 
   .selected-keys-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    min-height: 2rem;
-    padding: 0.5rem;
-    border: 1px solid #eee;
-    border-radius: 4px;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
   }
 
   .key-badge {
     display: inline-block;
-    padding: 0.25rem 0.5rem;
+    padding: 4px 8px;
     background-color: #e3f2fd;
     border: 1px solid #90caf9;
     border-radius: 4px;
