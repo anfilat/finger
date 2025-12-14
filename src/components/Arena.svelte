@@ -73,7 +73,16 @@
     entered += event.key;
     event.preventDefault();
 
-    checkMatch();
+    // Для режимов select-keys и random-key добавляем задержку,
+    // чтобы пользователь увидел введенный символ
+    if (trainingType === 'select-keys' || trainingType === 'random-key') {
+      setTimeout(() => {
+        checkMatch();
+      }, 250); // 250ms задержка
+    } else {
+      // Для других режимов проверка мгновенная
+      checkMatch();
+    }
   }
 
   // Обработка Backspace
@@ -205,7 +214,7 @@
   }
 
   .entered-line {
-    color: #666;
+    color: #444;
   }
 
   .error {
