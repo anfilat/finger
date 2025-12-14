@@ -43,17 +43,6 @@ export const appStore = writable<AppState>(initialState);
 // Вспомогательные функции для работы со store
 
 /**
- * Сбросить состояние в начальное (кроме сохранённых файлов)
- */
-export function resetToSettings() {
-  appStore.update(state => ({
-    ...initialState,
-    files: state.files, // Сохраняем файлы
-    activeFileId: state.activeFileId // Сохраняем активный файл
-  }));
-}
-
-/**
  * Установить режим
  */
 export function setMode(mode: AppMode) {
@@ -102,13 +91,6 @@ export function removeLastSelectedKey() {
     ...state,
     selectedKeys: state.selectedKeys.slice(0, -1)
   }));
-}
-
-/**
- * Очистить список выбранных клавиш (Select Keys)
- */
-export function clearSelectedKeys() {
-  appStore.update(state => ({ ...state, selectedKeys: [] }));
 }
 
 /**

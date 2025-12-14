@@ -44,20 +44,6 @@ export class SelectKeysGenerator {
 
     return [current, followUp];
   }
-
-  /**
-   * Обновить список выбранных клавиш
-   */
-  updateKeys(selectedKeys: string[]): void {
-    this.selectedKeys = selectedKeys;
-  }
-
-  /**
-   * Обновить язык
-   */
-  updateLanguage(language: Language): void {
-    this.language = language;
-  }
 }
 
 /**
@@ -82,13 +68,6 @@ export class RandomKeyGenerator {
     const followUp = hand ? getRandomHomeKey(hand, this.language) : null;
 
     return [current, followUp];
-  }
-
-  /**
-   * Обновить язык
-   */
-  updateLanguage(language: Language): void {
-    this.language = language;
   }
 }
 
@@ -121,13 +100,6 @@ export class PhrasesGenerator {
 
     // Для Phrases followUp всегда null
     return [current, null];
-  }
-
-  /**
-   * Обновить язык
-   */
-  updateLanguage(language: Language): void {
-    this.language = language;
   }
 }
 
@@ -185,25 +157,9 @@ export class FilesGenerator {
   }
 
   /**
-   * Обновить язык (может потребоваться перезагрузка строк)
-   */
-  updateLanguage(language: Language): void {
-    this.language = language;
-    // При смене языка строки могут измениться, но это обрабатывается на уровне загрузки файла
-    // Здесь просто обновляем язык
-  }
-
-  /**
    * Получить текущую позицию в файле
    */
   getCurrentPosition(): number {
     return this.fileInfo?.current ?? 0;
-  }
-
-  /**
-   * Получить общее количество строк
-   */
-  getTotalCount(): number {
-    return this.fileInfo?.count ?? 0;
   }
 }

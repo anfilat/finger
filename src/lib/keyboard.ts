@@ -4,11 +4,6 @@ export type Hand = 'left' | 'right';
 // Типы для языка
 export type Language = 'english' | 'russian';
 
-// Конфигурация символа
-export interface KeyConfig {
-  char: string; // Символ (может быть с Shift)
-  hand: Hand | null; // null для базовых клавиш
-}
 
 // Конфигурация раскладки
 export interface LayoutConfig {
@@ -131,15 +126,6 @@ export function getHomeKeysForHand(hand: Hand, language: Language): string[] {
   return layout.homeKeys[hand];
 }
 
-/**
- * Проверить, является ли символ базовой клавишей
- */
-export function isHomeKey(char: string, language: Language): boolean {
-  const layout = getLayout(language);
-  const lowerChar = char.toLowerCase();
-  return layout.homeKeys.left.includes(lowerChar) || 
-         layout.homeKeys.right.includes(lowerChar);
-}
 
 /**
  * Получить руку для символа (null для базовых клавиш)

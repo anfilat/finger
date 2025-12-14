@@ -166,18 +166,6 @@ export function loadFileLinesFromStorage(fileId: string): string[] | null {
   }
 }
 
-/**
- * Удалить строки файла из localStorage
- */
-export function removeFileLinesFromStorage(fileId: string): void {
-  try {
-    const allLines = loadAllFileLinesFromStorage();
-    const filtered = allLines.filter(fl => fl.fileId !== fileId);
-    localStorage.setItem(STORAGE_KEY_LINES, JSON.stringify(filtered));
-  } catch (error) {
-    console.error('Failed to remove file lines from localStorage:', error);
-  }
-}
 
 /**
  * Загрузить все сохранённые строки файлов из localStorage

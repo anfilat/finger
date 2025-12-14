@@ -16,23 +16,4 @@ export function getRandomWord(language: Language): string {
   return words[Math.floor(Math.random() * words.length)];
 }
 
-/**
- * Получить массив случайных слов для указанного языка
- */
-export function getRandomWords(language: Language, count: number): string[] {
-  const words = language === 'english' ? englishWordList : russianWordList;
-  const result: string[] = [];
-  
-  for (let i = 0; i < count; i++) {
-    result.push(words[Math.floor(Math.random() * words.length)]);
-  }
-  
-  return result;
-}
 
-/**
- * Получить все слова для указанного языка
- */
-export function getAllWords(language: Language): string[] {
-  return language === 'english' ? englishWordList : russianWordList;
-}
