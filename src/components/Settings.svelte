@@ -322,9 +322,8 @@
   }
 
   .start-button {
-    width: 100%;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
+    padding: 12px 24px;
+    font-size: 24px;
     font-weight: 600;
     background-color: #4caf50;
     color: white;
@@ -332,10 +331,6 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-  }
-
-  .start-button:hover:not(:disabled) {
-    background-color: #45a049;
   }
 
   .start-button:disabled {
