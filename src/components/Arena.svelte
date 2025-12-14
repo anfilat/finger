@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { appStore, resetToSettings, updateFileProgress } from '../stores/app.js';
-  import type { TrainingType } from '../stores/app.js';
   import {
     SelectKeysGenerator,
     RandomKeyGenerator,
@@ -168,10 +167,7 @@
 
       <!-- Нижняя строка: введённая последовательность -->
       <div class="entered-line">
-        <span class="correct">{correctPart}</span>
-        {#if hasError}
-          <span class="error">{errorPart}</span>
-        {/if}
+        {correctPart}<span class="error">{errorPart}</span>
       </div>
     </div>
   </div>
@@ -187,16 +183,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
-    cursor: pointer;
   }
 
   .arena-content {
     max-width: 90%;
     text-align: center;
     font-family: 'Courier New', monospace;
-    font-size: 2rem;
-    line-height: 1.6;
+    font-size: 64px;
   }
 
   .arena-content.long-line {
@@ -207,21 +200,13 @@
 
   .target-line {
     color: #333;
-    margin-bottom: 1rem;
-    min-height: 1.6em;
   }
 
   .entered-line {
-    color: #666;
-    min-height: 1.6em;
-  }
-
-  .correct {
     color: #666;
   }
 
   .error {
     color: #d32f2f;
-    background-color: #ffebee;
   }
 </style>
