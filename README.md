@@ -29,6 +29,31 @@ npm run build
 npm run preview
 ```
 
+## Развертывание на GitHub Pages
+
+Проект автоматически развертывается на GitHub Pages при пуше в ветку `master`.
+
+### Настройка
+
+1. **Настройка base пути**:
+   В `vite.config.js` замените `'finger'` на имя вашего репозитория:
+   ```javascript
+   base: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '/',
+   ```
+
+2. **Включите GitHub Pages в настройках репозитория**:
+   - Перейдите в Settings → Pages
+   - Выберите Source: "GitHub Actions"
+
+3. **Push в master ветку**:
+   ```bash
+   git add .
+   git commit -m "Add GitHub Pages deployment"
+   git push origin master
+   ```
+
+Деплой запустится автоматически и будет доступен по адресу: `https://your-username.github.io/your-repo-name/`
+
 ## Режимы тренировок
 
 ### Select Keys
