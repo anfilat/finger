@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { appStore, setMode, resetToSettings } from './stores/app.js';
+  import { appStore } from './stores/app.js';
   import Settings from './components/Settings.svelte';
   import Arena from './components/Arena.svelte';
   import { loadFilesFromStorage, loadFileLinesFromStorage } from './lib/fileManager.js';
-  import { get } from 'svelte/store';
 
   // Инициализация состояния из localStorage при загрузке
   onMount(() => {
@@ -27,16 +26,9 @@
       activeFileId: files.length > 0 ? files[0].id : null
     }));
   });
-
-  // Обработка клика по телу страницы для возврата в настройки
-  function handleBodyClick() {
-    if (get(appStore).mode === 'arena') {
-      resetToSettings();
-    }
-  }
 </script>
 
-<main on:click={handleBodyClick}>
+<main>
   {#if $appStore.mode === 'settings'}
     <Settings />
   {:else if $appStore.mode === 'arena'}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { appStore, resetToSettings, updateFileProgress } from '../stores/app.js';
+  import { appStore, setMode, updateFileProgress } from '../stores/app.js';
   import {
     SelectKeysGenerator,
     RandomKeyGenerator,
@@ -115,7 +115,7 @@
 
   // Обработка клика для возврата в настройки
   function handleClick() {
-    resetToSettings();
+    setMode('settings');
   }
 
   // Реакция на изменение режима, типа тренировки или языка
