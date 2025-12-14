@@ -183,34 +183,32 @@
   <!-- Настройки для Files -->
   {#if trainingType === 'files'}
     <div class="setting-group">
-      <div class="group-label">Загрузить файл:</div>
-      <input
-        type="file"
-        accept=".txt"
-        bind:this={fileInput}
-        onchange={handleFileUpload}
-      />
+      <label class="file-upload">
+        <input
+          type="file"
+          bind:this={fileInput}
+          onchange={handleFileUpload}
+        />
+        Load file
+      </label>
       
       {#if files.length > 0}
-        <div class="files-list">
-          <label>Загруженные файлы:</label>
-          {#each files as file}
-            <div class="file-item" class:active={file.id === activeFileId}>
-              <button
-                class="file-select"
-                onclick={() => handleSelectFile(file.id)}
-              >
-                {file.name} - {file.current}/{file.count}
-              </button>
-              <button
-                class="file-delete"
-                onclick={() => handleRemoveFile(file.id)}
-              >
-                del
-              </button>
-            </div>
-          {/each}
-        </div>
+        {#each files as file}
+          <div class="file-item" class:active={file.id === activeFileId}>
+            <button
+              class="file-select"
+              onclick={() => handleSelectFile(file.id)}
+            >
+              {file.name} - {file.current}/{file.count}
+            </button>
+            <button
+              class="file-delete"
+              onclick={() => handleRemoveFile(file.id)}
+            >
+              del
+            </button>
+          </div>
+        {/each}
       {/if}
     </div>
   {/if}
@@ -220,6 +218,9 @@
   .settings {
     padding-top: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .setting-group {
@@ -271,8 +272,17 @@
     font-style: italic;
   }
 
-  .files-list {
-    margin-top: 1rem;
+  input[type="file"] {
+    display: none;
+  }
+
+  .file-upload {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 12px 24px;
+    cursor: pointer;
+    margin-bottom: 12px;
   }
 
   .file-item {
