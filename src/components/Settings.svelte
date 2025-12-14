@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
   import { appStore, setLanguage, setTrainingType, addSelectedKey, removeLastSelectedKey, setActiveFile, removeFile, addFile } from '../stores/app.js';
   import type { TrainingType } from '../stores/app.js';
   import type { Language } from '../lib/keyboard.js';
@@ -6,7 +7,6 @@
   import { processUploadedFile, saveFileLinesToStorage, saveFilesToStorage } from '../lib/fileManager.js';
   import { get } from 'svelte/store';
 
-  let selectedKeysInput = '';
   let fileInput: HTMLInputElement;
 
   // Получаем текущее состояние из store
@@ -17,28 +17,6 @@
   $: files = state.files;
   $: activeFileId = state.activeFileId;
 
-  // Обработка ввода клавиш для режима Select Keys
-  function handleKeyInput(event: KeyboardEvent) {
-    if (event.key === 'Backspace') {
-      removeLastSelectedKey();
-      event.preventDefault();
-      return;
-    }
-
-    // Игнорируем специальные клавиши
-    if (event.key.length > 1) {
-      return;
-    }
-
-    const char = event.key.toLowerCase();
-    
-    // Проверяем, допустим ли символ для текущего языка
-    if (isValidKey(char, language)) {
-      addSelectedKey(char);
-    }
-    
-    event.preventDefault();
-  }
 
   // Обработка загрузки файла
   async function handleFileUpload(event: Event) {
@@ -90,9 +68,46 @@
     appStore.update(state => ({ ...state, mode: 'arena' }));
   }
 
+  // Обработка ввода клавиш для режима Select Keys (глобально)
+  function handleGlobalKeyInput(event: KeyboardEvent) {
+    // Только для режима select-keys
+    if (trainingType !== 'select-keys') {
+      return;
+    }
+
+    if (event.key === 'Backspace') {
+      removeLastSelectedKey();
+      event.preventDefault();
+      return;
+    }
+
+    // Игнорируем специальные клавиши
+    if (event.key.length > 1) {
+      return;
+    }
+
+    const char = event.key.toLowerCase();
+
+    // Проверяем, допустим ли символ для текущего языка
+    if (isValidKey(char, language)) {
+      addSelectedKey(char);
+    }
+
+    event.preventDefault();
+  }
+
+  // Настройка глобальных обработчиков событий
+  onMount(() => {
+    document.addEventListener('keydown', handleGlobalKeyInput);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener('keydown', handleGlobalKeyInput);
+  });
+
   // Проверка, можно ли запустить тренировку
-  $: canStart = 
-    trainingType === 'random-key' || 
+  $: canStart =
+    trainingType === 'random-key' ||
     trainingType === 'phrases' ||
     (trainingType === 'select-keys' && selectedKeys.length > 0) ||
     (trainingType === 'files' && activeFileId !== null);
@@ -154,24 +169,14 @@
   {#if trainingType === 'select-keys'}
     <div class="setting-group">
       <div class="group-label">Press training keys</div>
-      <div class="key-input-container">
-        <input
-          type="text"
-          class="key-input"
-          placeholder="Нажмите клавиши для добавления"
-          value={selectedKeysInput}
-          onkeydown={handleKeyInput}
-          readonly
-        />
-        <div class="selected-keys-list">
-          {#if selectedKeys.length > 0}
-            {#each selectedKeys as key}
-              <span class="key-badge">{key}</span>
-            {/each}
-          {:else}
-            <span class="empty-message">Нет выбранных клавиш</span>
-          {/if}
-        </div>
+      <div class="selected-keys-list">
+        {#if selectedKeys.length > 0}
+          {#each selectedKeys as key}
+            <span class="key-badge">{key}</span>
+          {/each}
+        {:else}
+          <span class="empty-message">No keys selected. Press any key to add it.</span>
+        {/if}
       </div>
     </div>
   {/if}
@@ -244,19 +249,6 @@
     .radio-group input {
       margin: 0;
     }
-
-  .key-input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .key-input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
 
   .selected-keys-list {
     display: flex;
