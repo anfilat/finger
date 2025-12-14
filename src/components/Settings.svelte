@@ -62,7 +62,8 @@
   }
 
   // Запуск тренировки
-  function handleStart() {
+  function handleStart(event: Event) {
+    event.stopPropagation(); // Prevent event bubbling to avoid triggering resetToSettings
     appStore.update(state => ({ ...state, mode: 'arena' }));
   }
 
