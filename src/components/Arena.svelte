@@ -11,14 +11,14 @@
   import { saveFilesToStorage } from '../lib/fileManager.js';
   import { get } from 'svelte/store';
 
-  let target = '';
-  let entered = '';
-  let followUp: string | null = null;
-  let generator: SelectKeysGenerator | RandomKeyGenerator | PhrasesGenerator | FilesGenerator | null = null;
+  let target = $state('');
+  let entered = $state('');
+  let followUp = $state<string | null>(null);
+  let generator = $state<SelectKeysGenerator | RandomKeyGenerator | PhrasesGenerator | FilesGenerator | null>(null);
 
-  $: state = $appStore;
-  $: language = state.language;
-  $: trainingType = state.trainingType;
+  const storeState = $derived($appStore);
+  const language = $derived(storeState.language);
+  const trainingType = $derived(storeState.trainingType);
 
   // Инициализация генератора
   function initGenerator() {
@@ -27,7 +27,7 @@
 
     switch (trainingType) {
       case 'select-keys':
-        generator = new SelectKeysGenerator(state.selectedKeys, language);
+        generator = new SelectKeysGenerator(storeState.selectedKeys, language);
         break;
       case 'random-key':
         generator = new RandomKeyGenerator(language);
@@ -36,7 +36,7 @@
         generator = new PhrasesGenerator(language);
         break;
       case 'files':
-        const activeFile = state.files.find(f => f.id === state.activeFileId);
+        const activeFile = storeState.files.find(f => f.id === storeState.activeFileId);
         generator = new FilesGenerator(activeFile || null, language);
         break;
     }
@@ -93,7 +93,7 @@
       if (trainingType === 'files' && generator instanceof FilesGenerator) {
         const currentPos = generator.getCurrentPosition();
         const newPos = currentPos + 1;
-        const activeFile = state.files.find(f => f.id === state.activeFileId);
+        const activeFile = storeState.files.find(f => f.id === storeState.activeFileId);
 
         if (activeFile) {
           updateFileProgress(activeFile.id, newPos);
@@ -123,19 +123,21 @@
   let prevTrainingType: string | null = null;
   let prevLanguage: string | null = null;
 
-  $: if (state.mode === 'arena' &&
-         (prevMode !== state.mode ||
-          prevTrainingType !== state.trainingType ||
-          prevLanguage !== state.language)) {
-    prevMode = state.mode;
-    prevTrainingType = state.trainingType;
-    prevLanguage = state.language;
-    initGenerator();
-  }
+  $effect(() => {
+    if (storeState.mode === 'arena' &&
+         (prevMode !== storeState.mode ||
+          prevTrainingType !== storeState.trainingType ||
+          prevLanguage !== storeState.language)) {
+      prevMode = storeState.mode;
+      prevTrainingType = storeState.trainingType;
+      prevLanguage = storeState.language;
+      initGenerator();
+    }
+  });
 
   // Настройка обработчиков событий
   onMount(() => {
-    if (state.mode === 'arena') {
+    if (storeState.mode === 'arena') {
       initGenerator();
     }
 
@@ -149,17 +151,17 @@
   });
 
   // Вычисление отображаемого текста
-  $: displayedEntered = entered.length > 0 ? replaceWhitespace(entered) : '\u00A0'; // неразрывный пробел
-  $: errorIndex = findFirstError(target, entered);
-  $: hasError = errorIndex >= 0;
-  $: correctPart = hasError ? displayedEntered.slice(0, errorIndex) : displayedEntered;
-  $: errorPart = hasError ? displayedEntered.slice(errorIndex) : '';
+  const displayedEntered = $derived(entered.length > 0 ? replaceWhitespace(entered) : '\u00A0'); // неразрывный пробел
+  const errorIndex = $derived(findFirstError(target, entered));
+  const hasError = $derived(errorIndex >= 0);
+  const correctPart = $derived(hasError ? displayedEntered.slice(0, errorIndex) : displayedEntered);
+  const errorPart = $derived(hasError ? displayedEntered.slice(errorIndex) : '');
 
   // Адаптивный размер шрифта для длинных строк
-  $: isLongLine = target.length > 50;
+  const isLongLine = $derived(target.length > 50);
 </script>
 
-{#if state.mode === 'arena'}
+{#if storeState.mode === 'arena'}
   <div class="arena" onclick={handleClick}>
     <div class="arena-content" class:long-line={isLongLine}>
       <!-- Верхняя строка: целевая последовательность -->

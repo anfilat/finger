@@ -5,15 +5,15 @@
   import { processUploadedFile, saveFileLinesToStorage, saveFilesToStorage } from '../lib/fileManager.js';
   import { get } from 'svelte/store';
 
-  let fileInput: HTMLInputElement;
+  let fileInput = $state<HTMLInputElement>();
 
   // Получаем текущее состояние из store
-  $: state = $appStore;
-  $: language = state.language;
-  $: trainingType = state.trainingType;
-  $: selectedKeys = state.selectedKeys;
-  $: files = state.files;
-  $: activeFileId = state.activeFileId;
+  const storeState = $derived($appStore);
+  const language = $derived(storeState.language);
+  const trainingType = $derived(storeState.trainingType);
+  const selectedKeys = $derived(storeState.selectedKeys);
+  const files = $derived(storeState.files);
+  const activeFileId = $derived(storeState.activeFileId);
 
 
   // Обработка загрузки файла
@@ -104,11 +104,12 @@
   });
 
   // Проверка, можно ли запустить тренировку
-  $: canStart =
+  const canStart = $derived(
     trainingType === 'random-key' ||
     trainingType === 'phrases' ||
     (trainingType === 'select-keys' && selectedKeys.length > 0) ||
-    (trainingType === 'files' && activeFileId !== null);
+    (trainingType === 'files' && activeFileId !== null)
+  );
 </script>
 
 <div class="settings">
