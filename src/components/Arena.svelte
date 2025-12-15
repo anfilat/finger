@@ -78,7 +78,7 @@
     if (trainingType === 'select-keys' || trainingType === 'random-key') {
       setTimeout(() => {
         checkMatch();
-      }, 250); // 250ms задержка
+      }, 100);
     } else {
       // Для других режимов проверка мгновенная
       checkMatch();
