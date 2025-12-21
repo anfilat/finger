@@ -167,7 +167,7 @@
   const errorPart = $derived(hasError ? displayedEntered.slice(errorIndex) : '');
 
   // Адаптивный размер шрифта для длинных строк
-  const isLongLine = $derived(target.length > 50);
+  const isLongLine = $derived(trainingType === 'files');
 </script>
 
 {#if storeState.mode === 'arena'}
@@ -197,14 +197,15 @@
   }
 
   .arena-content {
-    max-width: 90%;
+    font-size: 64px;
     text-align: center;
     font-family: 'Courier New', monospace;
-    font-size: 64px;
   }
 
   .arena-content.long-line {
-    font-size: 1.2rem;
+    width: 80%;
+    font-size: 26px;
+    text-align: left;
     word-wrap: break-word;
     white-space: pre-wrap;
   }
